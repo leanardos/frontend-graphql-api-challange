@@ -20,13 +20,11 @@ export default function App() {
 
 	useEffect(() => {
 		const debounceTimer = setTimeout(() => {
-			if (userInput) {
-				const filteredCountries = data?.countries?.filter((country) =>
-					country.name.toLowerCase().includes(userInput.toLowerCase())
-				);
-				if (filteredCountries) {
-					setFilteredCountries(filteredCountries);
-				}
+			const filteredCountries = data?.countries?.filter((country) =>
+				country.name.toLowerCase().includes(userInput.toLowerCase())
+			);
+			if (filteredCountries) {
+				setFilteredCountries(filteredCountries);
 			}
 		}, 1000);
 
