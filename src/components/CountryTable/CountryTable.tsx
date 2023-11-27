@@ -7,8 +7,7 @@ interface Props {
 
 export default function CountriesTable({ countries }: Props) {
 	return (
-		<div>
-			<h2>Countries</h2>
+		<div className='table-container'>
 			<table className='center'>
 				<thead>
 					<tr>

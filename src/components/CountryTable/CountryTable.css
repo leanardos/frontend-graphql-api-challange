@@ -3,8 +3,12 @@
 	margin-right: auto;
 }
 
+tr {
+	border-radius: 5px;
+}
+
 .name-cell {
-	width: 15rem;
+	width: 20rem;
 }
 
 tr:nth-child(even) {
@@ -14,4 +18,16 @@ tr:nth-child(even) {
 tr:hover {
 	background-color: #444870;
 	cursor: pointer;
+}
+
+th {
+	background: #5d0db8;
+	position: sticky;
+	top: 0;
+	color: white;
+}
+
+.table-container {
+	height: 30rem;
+	overflow-y: scroll;
 }

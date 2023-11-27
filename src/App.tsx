@@ -34,17 +34,20 @@ export default function App() {
 	return (
 		<div>
 			<input
+				className='filter'
 				type='text'
-				placeholder='Type to filter'
+				placeholder='Search countries...'
 				value={userInput}
 				onChange={(event) => setUserInput(event.target.value)}
 			/>
-
-			{loading || error ? (
-				<p>{error ? error.message : 'Loading...'}</p>
-			) : (
-				<CountriesTable countries={filteredCountries} />
-			)}
+			<div>
+				<h3>Countries</h3>
+				{loading || error ? (
+					<p>{error ? error.message : 'Loading...'}</p>
+				) : (
+					<CountriesTable countries={filteredCountries} />
+				)}
+			</div>
 		</div>
 	);
 }
