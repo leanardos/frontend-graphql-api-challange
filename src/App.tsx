@@ -1,28 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import './App.css';
 import { Country } from './types/country';
+import CountriesTable from './components/CountryTable/CountryTable';
+import { LIST_COUNTRIES } from './graphql/queries';
+import client from './graphql/client';
+import { useQuery } from '@apollo/client';
 
 export default function App() {
 	const [userInput, setUserInput] = useState<string>('');
-	const [loading, setLoading] = useState<boolean>(false);
-	const [countries, setCountries] = useState<Country[]>([]);
+	const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
+	const { data, loading, error } = useQuery<{ countries: Country[] }>(
+		LIST_COUNTRIES,
+		{ client }
+	);
 
-	async function fetchCountries() {
-		try {
-			setLoading(true);
-			const response = { data: [{ code: 'SP', name: 'Spain' }] }; // TODO: implement api call
-			console.log(response.data);
-			setCountries(response.data);
-		} catch (error) {
-			console.error('Error while fetching countries:', error);
-		} finally {
-			setLoading(false);
-		}
-	}
+	useLayoutEffect(() => {
+		setFilteredCountries(data?.countries || []);
+	}, [data?.countries]);
+
 	useEffect(() => {
 		const debounceTimer = setTimeout(() => {
 			if (userInput) {
-				fetchCountries();
+				const filteredCountries = data?.countries?.filter((country) =>
+					country.name.toLowerCase().includes(userInput.toLowerCase())
+				);
+				if (filteredCountries) {
+					setFilteredCountries(filteredCountries);
+				}
 			}
 		}, 1000);
 
@@ -38,14 +42,10 @@ export default function App() {
 				onChange={(event) => setUserInput(event.target.value)}
 			/>
 
-			{loading ? (
-				<p>Loading...</p>
+			{loading || error ? (
+				<p>{error ? error.message : 'Loading...'}</p>
 			) : (
-				<ul>
-					{countries.map((country) => (
-						<li key={country.code}>{country.name}</li>
-					))}
-				</ul>
+				<CountriesTable countries={filteredCountries} />
 			)}
 		</div>
 	);
