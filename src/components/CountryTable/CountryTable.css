@@ -2,3 +2,16 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.name-cell {
+	width: 15rem;
+}
+
+tr:nth-child(even) {
+	background-color: #313131;
+}
+
+tr:hover {
+	background-color: #444870;
+	cursor: pointer;
+}
