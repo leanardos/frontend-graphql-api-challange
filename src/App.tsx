@@ -23,7 +23,7 @@ export default function App() {
 	useEffect(() => {
 		const debounceTimer = setTimeout(() => {
 			const filteredCountries = data?.countries?.filter((country) =>
-				country.name.toLowerCase().includes(userInput.toLowerCase())
+				country.code.toLowerCase().includes(userInput.toLowerCase())
 			);
 			if (filteredCountries) {
 				setFilteredCountries(filteredCountries);
@@ -39,7 +39,7 @@ export default function App() {
 			setUserInput(event.target.value);
 			setWarningMessage(null);
 		} else {
-			setWarningMessage('Numeric values are not allowed');
+			setWarningMessage('Only letters are allowed');
 		}
 	}
 
@@ -48,14 +48,13 @@ export default function App() {
 			<input
 				className='filter'
 				type='text'
-				placeholder='Search countries...'
+				placeholder='Search countries by country code'
 				value={userInput}
 				onChange={(event) => handleInputChange(event)}
 			/>
 			{warningMessage && (
 				<p className='warning-message'>{warningMessage}</p>
 			)}
-
 			<div>
 				<h3>Countries</h3>
 				{loading || error ? (
