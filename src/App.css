@@ -16,3 +16,7 @@ input {
 	box-shadow: none;
 	border: none;
 }
+
+.warning-message {
+	color: orangered;
+}

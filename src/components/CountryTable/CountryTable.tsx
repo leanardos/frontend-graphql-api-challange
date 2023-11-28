@@ -17,7 +17,7 @@ export default function CountriesTable({ countries }: Props) {
 				</thead>
 				<tbody>
 					{countries.map((country) => (
-						<tr>
+						<tr key={country.code}>
 							<td>{country.code}</td>
 							<td className='name-cell'>{country.name}</td>
 						</tr>
